@@ -62,13 +62,13 @@ router.post("/api/v1/item", async (req, res) => {
 
 //get item by name
 
-router.get("/api/v1/item/:item_name", async (req, res) => {
+router.get("/api/v1/item", async (req, res) => {
     try{
         const db = require('./db/indexdb');
-        const results = await db.query("select * from item where item_name = $1", [req.params.item_name]); 
-        console.log(results);
+        const results = await db.query("select * from item"); 
         res.status(200).json({
             status: "success",
+            results: results.rows.length,
             data: {
                 data: results.rows,
             },
